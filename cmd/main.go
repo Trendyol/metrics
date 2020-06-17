@@ -8,7 +8,7 @@ import (
 	"path"
 	"time"
 
-	"metrics"
+	"github.com/trendyol/metrics"
 )
 
 var (
