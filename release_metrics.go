@@ -141,3 +141,19 @@ func (rs ReleaseMetrics) GetFourKeyMetricsForSprints(earliestDate time.Time, spr
 
 	return
 }
+
+func (rs ReleaseMetrics) GetFourKeyMetricsLookBack(earliestDays int) FourKeyMetrics {
+	now := time.Now()
+	earliestDate := now.AddDate(0, 0, -earliestDays)
+
+	releaseMetrics := rs.FilterByDate(earliestDate, now)
+
+	return FourKeyMetrics{
+		FromDate:            earliestDate,
+		ToDate:              now,
+		DeploymentFrequency: releaseMetrics.GetDeploymentFrequency(),
+		DeliveryLeadTime:    releaseMetrics.GetDeliveryLeadTime(),
+		MeanTimeToRestore:   releaseMetrics.GetMeanTimeToRestore(),
+		ChangeFailureRate:   releaseMetrics.GetChangeFailureRate(),
+	}
+}

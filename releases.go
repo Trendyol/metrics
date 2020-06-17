@@ -73,7 +73,7 @@ func ParseReleases(reader io.Reader, releasesTagPattern, fixTagRegex string) []R
 }
 
 func GetRawReleases(repoDir string) (io.Reader, error) {
-	cmd := exec.Command("git", "for-each-ref", "--sort=-taggerdate", `--format=%(tag),%(taggerdate:iso-strict)`, `refs/tags`)
+	cmd := exec.Command("git", "for-each-ref", "--sort=-creatordate", `--format=%(refname),%(creatordate:iso-strict)`, `refs/tags`)
 	cmd.Stderr = os.Stderr
 	cmd.Dir = repoDir
 
